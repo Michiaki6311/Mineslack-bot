@@ -44,8 +44,13 @@ post '/search' do
         response = array.sample if response.strip.length > 1024
         response = "Not Found" if array == []
         
+      if params[:token] == ENV['TOKEN1']
         slack = Slack::Incoming::Webhooks.new ENV['URL']
         slack.post "#{response.strip}"
+        elsif params[:token] == ENV['TOKEN2']
+        slack = Slack::Incoming::Webhooks.new ENV['URL2']
+        slack.post "#{response.strip}"
+      end
         
         elsif params[:text] =~ /^!mg\s/ then
         response = "hi"
