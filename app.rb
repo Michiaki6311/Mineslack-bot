@@ -4,6 +4,7 @@ require 'open-uri'
 require 'uri'
 require 'nokogiri'
 require 'slack/incoming/webhooks'
+require 'date'
 
 get '/' do
   'Hello,World!'
@@ -15,6 +16,7 @@ post '/search' do
       array = []
       url = "http://www26.atwiki.jp/minecraft/pages/1073.html"
       items = nil
+      timestamp = Time.now.to_i
       searchword = params[:text].gsub(/^!mr\s/,'')
 
       # parse only first time and keep items
@@ -28,7 +30,7 @@ post '/search' do
 
           {
             name: item[0].text,
-            image: item[1].xpath('.//img').map {|img| "http:#{img.attribute('src')}#.timestamp" }.join("\n"),
+            image: item[1].xpath('.//img').map {|img| "http:#{img.attribute('src')}##{timestamp}" }.join("\n"),
             craft: item[2].text,
           }
         }
