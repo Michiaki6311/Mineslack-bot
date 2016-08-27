@@ -10,14 +10,12 @@ get '/' do
 end
 
 post '/search' do
-    if params[:text] =~ /^mr\s/ then
+    if params[:text] =~ /^!mr\s/ then
       
-      response = 'Hi,Michi!'
-      message = "exist"
       array = []
       url = "http://www26.atwiki.jp/minecraft/pages/1073.html"
       items = nil
-      searchword = params[:text].gsub(/^mr\s/,'')
+      searchword = params[:text].gsub(/^!mr\s/,'')
 
       # parse only first time and keep items
       if !items
@@ -38,15 +36,19 @@ post '/search' do
 
       items.each do |x|
         if x[:name] =~ /#{searchword}/
-          array.push("#{x[:name]}\n#{x[:craft]}\n#{x[:image]}\n")
+          array.push("#{x[:name].downcase!}\n#{x[:craft]}\n#{x[:image]}\n")
         end
       end
         
         response = array.join.strip
         response = array.sample if response.strip.length > 1024
-        response = "Not Found" if array == [] && message == "exist"
+        response = "Not Found" if array == []
         
         slack = Slack::Incoming::Webhooks.new ENV['URL']
         slack.post "#{response.strip}"
+        
+        elsif params[:text] =~ /^!mg\s/ then
+        response = "hi"
     end
+    
 end
