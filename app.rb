@@ -28,15 +28,15 @@ post '/search' do
 
           {
             name: item[0].text,
-            image: item[1].xpath('.//img').map {|img| "http:#{img.attribute('src')}#.png" }.join("\n"),
+            image: item[1].xpath('.//img').map {|img| "http:#{img.attribute('src')}#.timestamp" }.join("\n"),
             craft: item[2].text,
           }
         }
       end
 
       items.each do |x|
-        if x[:name] =~ /#{searchword}/
-          array.push("#{x[:name].downcase!}\n#{x[:craft]}\n#{x[:image]}\n")
+        if x[:name].downcase! =~ /#{searchword}/
+          array.push("#{x[:name]}\n#{x[:craft]}\n#{x[:image]}\n")
         end
       end
         
@@ -49,6 +49,9 @@ post '/search' do
         slack.post "#{response.strip}"
         elsif params[:token] == ENV['TOKEN2']
         slack = Slack::Incoming::Webhooks.new ENV['URL2']
+        slack.post "#{response.strip}"
+        elsif params[:token] == ENV['TOKEN3']
+        slack = Slack::Incoming::Webhooks.new ENV['URL3']
         slack.post "#{response.strip}"
       end
         
