@@ -113,6 +113,62 @@ post '/search' do
         }
       end
       
+      
+      
+  elsif params[:text] =~ /^!mi\s/ then
+		searchword = params[:text].gsub(/^!mi\s/,'')
+		url = "http://minecrafter.link/category/%E3%82%A2%E3%82%A4%E3%83%86%E3%83%A0/"
+		doc = Nokogiri::HTML.parse(open(url), nil, "utf-8")
+		details = nil
+		items = nil
+		ary = []
+		timestamp = Time.now.to_i
+
+		if !items
+			items = doc.xpath("//article/header/h2").map{|node|
+				{
+					name: node.text,
+					url: node.xpath('a').attribute('href').value,
+				}
+			}
+		else
+			""
+		end
+
+		items.each do |item|
+			if item[:name] =~ /#{searchword}/ then
+				ary.push("#{item[:url]}")
+			end
+		end
+
+		ary.each do |item_url|
+			doc = Nokogiri::HTML.parse(open(item_url), nil, "utf-8")
+			details = doc.xpath("//article").map{|detail|
+				{
+					name: detail.xpath('//h2[@class="entry-title post_title"]').text,
+					image: detail.xpath('//div[@class="item_img"]/img').attribute('src').value + "##{timestamp}",
+					text: detail.xpath('//div[@class="text bg_box"]').text,
+				}
+			}
+		end
+
+		details.each do |detail|
+			response = "#{detail[:name]}\n#{detail[:image]}\n#{detail[:text]}\n"
+		end
+		
+		if params[:token] == ENV['TOKEN1']
+        slack = Slack::Incoming::Webhooks.new ENV['URL']
+        response.strip
+        elsif params[:token] == ENV['TOKEN2']
+        slack = Slack::Incoming::Webhooks.new ENV['URL2']
+        response.strip
+        elsif params[:token] == ENV['TOKEN3']
+        slack = Slack::Incoming::Webhooks.new ENV['URL3']
+        response.strip
+    end
+
+      
+      
     else ""
       
     end
