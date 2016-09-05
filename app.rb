@@ -131,8 +131,6 @@ post '/search' do
 					url: node.xpath('a').attribute('href').value,
 				}
 			}
-		else
-			""
 		end
 
 		items.each do |item|
@@ -153,7 +151,10 @@ post '/search' do
 		end
 
 		details.each do |detail|
-			response = "#{detail[:name]}\n#{detail[:image]}\n#{detail[:text]}\n"
+		  if ary = [] then
+		    response = "Not Found"
+		  else
+			  response = "#{detail[:name]}\n#{detail[:image]}\n#{detail[:text]}\n"
 		end
 		
 		if params[:token] == ENV['TOKEN1']
@@ -166,6 +167,7 @@ post '/search' do
         slack = Slack::Incoming::Webhooks.new ENV['URL3']
         response.strip
     end
+    
 
       
       
