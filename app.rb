@@ -11,7 +11,7 @@ get '/' do
 end
 
 post '/search' do
-	if params[:text].downcase! =~ /^!mr\s/ then
+	if params[:text] =~ /^!mr\s/ then
 
 		array = []
 		url = "http://www26.atwiki.jp/minecraft/pages/1073.html"
@@ -37,7 +37,7 @@ post '/search' do
 		end
 
 		items.each do |x|
-			if x[:name] =~ /#{searchword}/
+			if x[:name].downcase! =~ /#{searchword}/
 				array.push("#{x[:name]}\n#{x[:craft]}\n#{x[:image]}\n")
 			end
 		end
@@ -65,7 +65,7 @@ post '/search' do
 
 
 
-	elsif params[:text].downcase! =~ /^!mg\s/ then
+	elsif params[:text] =~ /^!mg\s/ then
 		array = []
 		url = "http://www26.atwiki.jp/minecraft/pages/1073.html"
 		items = nil
@@ -89,7 +89,7 @@ post '/search' do
 		end
 
 		items.each do |x|
-			if x[:name] =~ /#{searchword}/
+			if x[:name].downcase! =~ /#{searchword}/
 				array.push("#{x[:name]}\n#{x[:image]}\n")
 			end
 		end
@@ -116,7 +116,7 @@ post '/search' do
 
 
 
-	elsif params[:text].downcase! =~ /^!mi\s/ then
+	elsif params[:text] =~ /^!mi\s/ then
 		url = "http://minecrafter.link/category/%E3%82%A2%E3%82%A4%E3%83%86%E3%83%A0/"
 		doc = Nokogiri::HTML.parse(open(url), nil, "utf-8")
 		searchword = params[:text].gsub(/^!mi\s/,'')
