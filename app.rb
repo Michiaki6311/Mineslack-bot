@@ -156,11 +156,11 @@ post '/search' do
 						text: detail.xpath('//div[@class="text bg_box"]').text,
 					}
 				}
+				details.each do |detail|
+				 item_details.push("#{detail[:name]}\n#{detail[:image]}\n#{detail[:text]}\n")
+			    end
 			end
 
-			details.each do |detail|
-				item_details.push("#{detail[:name]}\n#{detail[:image]}\n#{detail[:text]}\n")
-			end
 
 
 			if params[:token] == ENV['TOKEN1']

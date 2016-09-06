@@ -19,6 +19,7 @@ post '/search' do
 		items = nil
 		ary = []
 		item_details = []
+		array = []
 
 		if !items
 			items = doc.xpath("//article/header/h2").map{|node|
@@ -37,6 +38,8 @@ post '/search' do
 			end
 		end
 		
+		
+		
 		if ary == [] then
 			item_details.push('Not Found')
 		else
@@ -50,17 +53,14 @@ post '/search' do
 					text: detail.xpath('//div[@class="text bg_box"]').text,
 				}
 			}
+			details.each do |detail|
+				item_details.push("#{detail[:name]}\n#{detail[:image]}\n#{detail[:text]}\n")
+		    end
 		end
+			
+		item_details
 		
-		details.each do |detail|
-			item_details.push("#{detail[:name]}\n#{detail[:image]}\n#{detail[:text]}\n")
-		end
+	    end
 		
-		
-		item_details.each do |arr|
-			arr.strip
-		end
 	end
-		
-		end
 end
