@@ -129,7 +129,7 @@ post '/search' do
 		if !items
 			items = doc.xpath("//article/header/h2").map{|node|
 				{
-					name: node.text,
+					name: node.text.downcase,
 					url: node.xpath('a').attribute('href').value,
 				}
 			}
@@ -153,11 +153,12 @@ post '/search' do
 					{
 						name: detail.xpath('//h2[@class="entry-title post_title"]').text,
 						image: detail.xpath('//div[@class="item_img"]/img').attribute('src').value + "##{timestamp}",
+						item_text: detail.xpath('//div[@class="item_text"]/p').text,
 						text: detail.xpath('//div[@class="text bg_box"]').text,
 					}
 				}
 				details.each do |detail|
-				 item_details.push("#{detail[:name]}\n#{detail[:image]}\n#{detail[:text]}\n")
+				 item_details.push("#{detail[:name]}\n#{detail[:image]}\n#{detail[:item_text]}\n#{detail[:text]}\n")
 			    end
 			end
 
