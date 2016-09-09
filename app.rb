@@ -268,6 +268,21 @@ post '/search' do
 			slack = Slack::Incoming::Webhooks.new ENV['URL3']
 				slack.post "#{url}" + "##{timestamp}"
 		end	
+		
+		elsif params[:text] =~ /^!m\s-blocks/ then
+	    url = "https://hydra-media.cursecdn.com/minecraft-ja.gamepedia.com/3/32/Template1.png"
+	    timestamp = Time.now.to_i
+	    
+		if params[:token] == ENV['TOKEN1']
+			slack = Slack::Incoming::Webhooks.new ENV['URL']
+				slack.post "#{url}" + "##{timestamp}"
+		elsif params[:token] == ENV['TOKEN2']
+			slack = Slack::Incoming::Webhooks.new ENV['URL2']
+				slack.post "#{url}" + "##{timestamp}"
+		elsif params[:token] == ENV['TOKEN3']
+			slack = Slack::Incoming::Webhooks.new ENV['URL3']
+				slack.post "#{url}" + "##{timestamp}"
+		end	
 
 
 	else
