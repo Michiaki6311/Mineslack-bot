@@ -184,7 +184,7 @@ post '/search' do
 		end
 		
 		
-		elsif params[:text] =~ /^!mb\s/ then
+	elsif params[:text] =~ /^!mb\s/ then
 
 		url = "http://minecraft-ja.gamepedia.com/%E3%82%AB%E3%83%86%E3%82%B4%E3%83%AA:%E3%83%96%E3%83%AD%E3%83%83%E3%82%AF"
 		doc = Nokogiri::HTML.parse(open(url), nil, "utf-8")
@@ -253,6 +253,21 @@ post '/search' do
 			}
 		end
 			
+			
+	elsif params[:text] =~ /^m\s-brew/ then
+	    url = "https://hydra-media.cursecdn.com/minecraft-ja.gamepedia.com/0/0d/MinecraftPotionsSimple.png"
+	    timestamp = Time.now.to_i
+	    
+		if params[:token] == ENV['TOKEN1']
+			slack = Slack::Incoming::Webhooks.new ENV['URL']
+				slack.post "#{url}" + "##{timestamp}"
+		elsif params[:token] == ENV['TOKEN2']
+			slack = Slack::Incoming::Webhooks.new ENV['URL2']
+				slack.post "#{url}" + "##{timestamp}"
+		elsif params[:token] == ENV['TOKEN3']
+			slack = Slack::Incoming::Webhooks.new ENV['URL3']
+				slack.post "#{url}" + "##{timestamp}"
+		end	
 
 
 	else
