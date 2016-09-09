@@ -254,7 +254,7 @@ post '/search' do
 		end
 			
 			
-	elsif params[:text] =~ /^m\s-brew/ then
+	elsif params[:text] =~ /^!m\s-brew/ then
 	    url = "https://hydra-media.cursecdn.com/minecraft-ja.gamepedia.com/0/0d/MinecraftPotionsSimple.png"
 	    timestamp = Time.now.to_i
 	    
