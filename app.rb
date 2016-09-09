@@ -150,7 +150,7 @@ post '/search' do
 				details = doc.xpath("//div[@class='mw-body']").map{|node|
 					{
 						name: node.xpath("//h1").text,
-						image: node.xpath("//a[@class='image']//img").attribute('src').value + "##{timestamp}",
+						image: node.xpath("//div[@class='infobox-imagearea']//img").attribute('src').value + "##{timestamp}",
 						description: node.xpath("//div[@class='mw-content-ltr']/p|//div[@class='mw-content-ltr']/ul/li[not(@class) and not(*)]").text,
 
 					}
