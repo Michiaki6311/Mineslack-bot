@@ -114,77 +114,78 @@ post '/search' do
 		end
 
 
-
-
 	elsif params[:text] =~ /^!mi\s/ then
-		url = "http://minecrafter.link/category/%E3%82%A2%E3%82%A4%E3%83%86%E3%83%A0/"
+
+		url = "http://minecraft-ja.gamepedia.com/%E3%82%AB%E3%83%86%E3%82%B4%E3%83%AA:%E3%82%A2%E3%82%A4%E3%83%86%E3%83%A0"
 		doc = Nokogiri::HTML.parse(open(url), nil, "utf-8")
-		searchword = params[:text].gsub(/^!mi\s/,'')
-		details = nil
 		items = nil
-		ary = []
+		array = []
+		searchword = params[:text].gsub(/^!mi\s/,'')
 		item_details = []
+		details = []
+		new_url = []
 		timestamp = Time.now.to_i
 
 		if !items
-			items = doc.xpath("//article/header/h2").map{|node|
+			items = doc.xpath("//div[@id='mw-pages']//div[@class='mw-category-group']/ul/li").map{|node|
 				{
 					name: node.text.downcase,
-					url: node.xpath('a').attribute('href').value,
+					url: "http://minecraft-ja.gamepedia.com/"+ node.text,
+
 				}
 			}
-		else
-			""
-		end
 
-		items.each do |item|
-			if item[:name] =~ /#{searchword}/ then
-				ary.push("#{item[:url]}")
+			items.each do |item|
+				if item[:name] =~ /#{searchword}/ then 
+					array.push("#{item[:url]}")
+				end
 			end
-		end
 
-		if ary == [] then
-			item_details.push('Not Found')
-		else
+			array.each do |item_url|
+				new_url.push(URI.encode(item_url))
+			end
 
-			ary.each do |item_url|
-				doc = Nokogiri::HTML.parse(open(item_url), nil, "utf-8")
-				details = doc.xpath("//article").map{|detail|
+			new_url.each do |new_item_url|
+				doc = Nokogiri::HTML.parse(open(new_item_url), nil, "utf-8") 
+				details = doc.xpath("//div[@class='mw-body']").map{|node|
 					{
-						name: detail.xpath('//h2[@class="entry-title post_title"]').text,
-						image: detail.xpath('//div[@class="item_img"]/img').attribute('src').value + "##{timestamp}",
-						item_text: detail.xpath('//div[@class="item_text"]/p').text,
-						text: detail.xpath('//div[@class="text bg_box"]').text,
+						name: node.xpath("//h1").text,
+						image: "http://minecraft-ja.gamepedia.com" + node.xpath("//a[@class='image']").attribute('href').value + "##{timestamp}",
+						description: node.xpath("//div[@class='mw-content-ltr']/p|//div[@class='mw-content-ltr']/ul/li[not(@class) and not(*)]").text,
+
 					}
 				}
+
 				details.each do |detail|
-				 item_details.push("#{detail[:name]}\n#{detail[:image]}\n#{detail[:item_text]}\n#{detail[:text]}\n")
-			    end
+					item_details.push("#{detail[:name]}\n#{detail[:image]}\n#{detail[:description]}\n")
+				end
 			end
+		end
 
+		if item_details == [] then
+			item_details.push('Not Found')
+		end
 
-
-			if params[:token] == ENV['TOKEN1']
-				slack = Slack::Incoming::Webhooks.new ENV['URL']
-				item_details.map{|arr|
-					slack.post "#{arr.strip}"
-				}
-			elsif params[:token] == ENV['TOKEN2']
-				slack = Slack::Incoming::Webhooks.new ENV['URL2']
-				item_details.map{|arr|
-					slack.post "#{arr.strip}"
-				}
-			elsif params[:token] == ENV['TOKEN3']
-				slack = Slack::Incoming::Webhooks.new ENV['URL3']
-				item_details.map{|arr|
-					slack.post "#{arr.strip}"
-				}
-			end
-
+		if params[:token] == ENV['TOKEN1']
+			slack = Slack::Incoming::Webhooks.new ENV['URL']
+			item_details.map{|arr|
+				slack.post "#{arr.strip}"
+			}
+		elsif params[:token] == ENV['TOKEN2']
+			slack = Slack::Incoming::Webhooks.new ENV['URL2']
+			item_details.map{|arr|
+				slack.post "#{arr.strip}"
+			}
+		elsif params[:token] == ENV['TOKEN3']
+			slack = Slack::Incoming::Webhooks.new ENV['URL3']
+			item_details.map{|arr|
+				slack.post "#{arr.strip}"
+			}
 		end
 
 
-	else ""
+	else
+		""
 
 	end
 
