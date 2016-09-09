@@ -288,31 +288,33 @@ post '/search' do
 		
 	elsif params[:text] =~ /^!m\s-ore/ then
 	    url = "https://gyazo.com/9b07420102f70bdbbe69d24acc26494a"
+	    timestamp = Time.now.to_i
 	    
 		if params[:token] == ENV['TOKEN1']
 			slack = Slack::Incoming::Webhooks.new ENV['URL']
-				slack.post "#{url}"
+				slack.post "#{url}"+ "##{timestamp}"
 		elsif params[:token] == ENV['TOKEN2']
 			slack = Slack::Incoming::Webhooks.new ENV['URL2']
-				slack.post "#{url}"
+				slack.post "#{url}"+ "##{timestamp}"
 		elsif params[:token] == ENV['TOKEN3']
 			slack = Slack::Incoming::Webhooks.new ENV['URL3']
-				slack.post "#{url}"
+				slack.post "#{url}"+ "##{timestamp}"
 		end	
 		
 		
 	elsif params[:text] =~ /^!m\s-enchant/ then
 	    url = "https://gyazo.com/c9db51aaca5b53a575c86dd80a0924c0"
+	    timestamp = Time.now.to_i
 	    
 		if params[:token] == ENV['TOKEN1']
 			slack = Slack::Incoming::Webhooks.new ENV['URL']
-				slack.post "#{url}"
+				slack.post "#{url}"+ "##{timestamp}"
 		elsif params[:token] == ENV['TOKEN2']
 			slack = Slack::Incoming::Webhooks.new ENV['URL2']
-				slack.post "#{url}"
+				slack.post "#{url}"+ "##{timestamp}"
 		elsif params[:token] == ENV['TOKEN3']
 			slack = Slack::Incoming::Webhooks.new ENV['URL3']
-				slack.post "#{url}"
+				slack.post "#{url}"+ "##{timestamp}"
 		end	
 
 
