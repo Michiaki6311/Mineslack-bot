@@ -150,7 +150,7 @@ post '/search' do
 				details = doc.xpath("//div[@class='mw-body']").map{|node|
 					{
 						name: node.xpath("//h1").text,
-						image: "http://minecraft-ja.gamepedia.com" + node.xpath("//a[@class='image']").attribute('href').value + "##{timestamp}",
+						image: node.xpath("//a[@class='image']//img").attribute('src').value + "##{timestamp}",
 						description: node.xpath("//div[@class='mw-content-ltr']/p|//div[@class='mw-content-ltr']/ul/li[not(@class) and not(*)]").text,
 
 					}
