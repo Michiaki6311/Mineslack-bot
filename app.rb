@@ -151,13 +151,15 @@ post '/search' do
 					{
 						name: node.xpath("//h1").text,
 						image: node.xpath("//div[@class='infobox-imagearea']//img").attribute('src').value + "##{timestamp}",
-						description: node.xpath("//div[@class='mw-content-ltr']/p|//div[@class='mw-content-ltr']/ul/li[not(@class) and not(*)]").text,
+						description: node.xpath("//div[@class='mw-content-ltr']/p|//div[@class='mw-content-ltr']/ul/li[not(@class) and not(*)]").map{|new_node|
+						new_node.text
+						}
 
 					}
 				}
 
 				details.each do |detail|
-					item_details.push("#{detail[:name]}\n#{detail[:image]}\n#{detail[:description]}\n")
+					item_details.push("#{detail[:name]}\n#{detail[:image]}\n#{detail[:description].join("\n")}\n\n")
 				end
 			end
 		end
