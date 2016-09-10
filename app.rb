@@ -254,7 +254,7 @@ post '/search' do
 		end
 			
 			
-	elsif params[:text] =~ /^!m\s-brew/ then
+	elsif params[:text] =~ /^!m\sbrew/ then
 	    url = "https://hydra-media.cursecdn.com/minecraft-ja.gamepedia.com/0/0d/MinecraftPotionsSimple.png"
 	    timestamp = Time.now.to_i
 	    
@@ -270,7 +270,7 @@ post '/search' do
 		end	
 		
 		
-	elsif params[:text] =~ /^!m\s-blocks/ then
+	elsif params[:text] =~ /^!m\sblocks/ then
 	    url = "https://hydra-media.cursecdn.com/minecraft-ja.gamepedia.com/3/32/Template1.png"
 	    timestamp = Time.now.to_i
 	    
@@ -286,35 +286,35 @@ post '/search' do
 		end	
 		
 		
-	elsif params[:text] =~ /^!m\s-ore/ then
+	elsif params[:text] =~ /^!m\sore/ then
 	    url = "https://i.gyazo.com/9b07420102f70bdbbe69d24acc26494a"
 	    timestamp = Time.now.to_i
 	    
 		if params[:token] == ENV['TOKEN1']
 			slack = Slack::Incoming::Webhooks.new ENV['URL']
-				slack.post "#{url}"+ "##{timestamp}"
+				slack.post "#{url}"
 		elsif params[:token] == ENV['TOKEN2']
 			slack = Slack::Incoming::Webhooks.new ENV['URL2']
-				slack.post "#{url}"+ "##{timestamp}"
+				slack.post "#{url}"
 		elsif params[:token] == ENV['TOKEN3']
 			slack = Slack::Incoming::Webhooks.new ENV['URL3']
-				slack.post "#{url}"+ "##{timestamp}"
+				slack.post "#{url}"
 		end	
 		
 		
-	elsif params[:text] =~ /^!m\s-enchant/ then
+	elsif params[:text] =~ /^!m\senchant/ then
 	    url = "https://i.gyazo.com/c9db51aaca5b53a575c86dd80a0924c0"
 	    timestamp = Time.now.to_i
 	    
 		if params[:token] == ENV['TOKEN1']
 			slack = Slack::Incoming::Webhooks.new ENV['URL']
-				slack.post "#{url}"+ "##{timestamp}"
+				slack.post "#{url}"
 		elsif params[:token] == ENV['TOKEN2']
 			slack = Slack::Incoming::Webhooks.new ENV['URL2']
-				slack.post "#{url}"+ "##{timestamp}"
+				slack.post "#{url}"
 		elsif params[:token] == ENV['TOKEN3']
 			slack = Slack::Incoming::Webhooks.new ENV['URL3']
-				slack.post "#{url}"+ "##{timestamp}"
+				slack.post "#{url}"
 		end	
 
 
