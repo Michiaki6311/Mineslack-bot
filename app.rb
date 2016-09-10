@@ -287,7 +287,7 @@ post '/search' do
 		
 		
 	elsif params[:text] =~ /^!m\sore/ then
-	    url = "https://i.gyazo.com/9b07420102f70bdbbe69d24acc26494a"
+	    url = "https://gyazo.com/9b07420102f70bdbbe69d24acc26494a"
 	    timestamp = Time.now.to_i
 	    
 		if params[:token] == ENV['TOKEN1']
@@ -303,7 +303,7 @@ post '/search' do
 		
 		
 	elsif params[:text] =~ /^!m\senchant/ then
-	    url = "https://i.gyazo.com/c9db51aaca5b53a575c86dd80a0924c0"
+	    url = "https://gyazo.com/c9db51aaca5b53a575c86dd80a0924c0"
 	    timestamp = Time.now.to_i
 	    
 		if params[:token] == ENV['TOKEN1']
