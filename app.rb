@@ -153,13 +153,7 @@ post '/search' do
 						image: node.xpath("//div[@class='infobox-imagearea']//img").attribute('src').value + "##{timestamp}",
 						description: node.xpath("//div[@class='mw-content-ltr']/p|//div[@class='mw-content-ltr']/ul/li[not(@class) and not(*)]").map{|new_node|
 						if new_node.to_html =~ /<span class="mw-headline"/ then
-							case new_node.text
-							when /歴史|ギャラリー|脚注|参考/
-							then
-							""
-						    else
 							"*"+new_node.text+"*"
-						    end
 						elsif new_node.to_html =~ /<li>/ then
 						    "・"+new_node.text
 						elsif new_node.to_html =~ /<p>/ then
