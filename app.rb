@@ -152,14 +152,22 @@ post '/search' do
 						name: node.xpath("//h1").text,
 						image: node.xpath("//div[@class='infobox-imagearea']//img").attribute('src').value + "##{timestamp}",
 						description: node.xpath("//div[@class='mw-content-ltr']/h3/span[@class='mw-headline']|//div[@class='mw-content-ltr']/h2/span[@class='mw-headline']|//div[@class='mw-content-ltr']/p|//div[@class='mw-content-ltr']/ul/li[not(@class) and not(*)]").map{|new_node|
-						if new_node.to_html =~ /<span class="mw-headline"/ then
+						if new_node.to_html =~ /<h2/ then
 							case new_node.text
-							when /歴史|ギャラリー|脚注|参考/
+							when /歴史|ギャラリー|脚注/
 							then
 							""
 						    else
-							"*"+new_node.text+"*"
+							new_node.children.filter("//span[@class='mw-headline']").map{|new_new_node|
+							
+								"*"+new_new_node+"*"
+							}
 						    end
+						elsif new_node.to_html =~ /<h3/ then
+						    new_node.children.filter("//span[@class='mw-headline']").map{|new_new_node|
+						    
+						    	"_"+new_new_node+"_"
+						    }
 						elsif new_node.to_html =~ /<li>/ then
 						    "・"+new_node.text
 						elsif new_node.to_html =~ /<p>/ then
@@ -235,8 +243,28 @@ post '/search' do
 					{
 						name: node.xpath("//h1").text,
 						image: node.xpath("//div[@class='infobox-imagearea']//img").attribute('src').value + "##{timestamp}",
-						description: node.xpath("//div[@class='mw-content-ltr']/p|//div[@class='mw-content-ltr']/ul/li[not(@class) and not(*)]").map{|new_node|
-						new_node.text
+						description: node.xpath("//div[@class='mw-content-ltr']/h3|//div[@class='mw-content-ltr']/h2|//div[@class='mw-content-ltr']/p|//div[@class='mw-content-ltr']/ul/li[not(@class) and not(*)]").map{|new_node|
+						if new_node.to_html =~ /<h2/ then
+							case new_node.text
+							when /歴史|ギャラリー|脚注/
+							then
+							""
+						    else
+							new_node.children.filter("//span[@class='mw-headline']").map{|new_new_node|
+							
+								"*"+new_new_node+"*"
+							}
+						    end
+						elsif new_node.to_html =~ /<h3/ then
+						    new_node.children.filter("//span[@class='mw-headline']").map{|new_new_node|
+						    
+						    	"_"+new_new_node+"_"
+						    }
+						elsif new_node.to_html =~ /<li>/ then
+						    "・"+new_node.text
+						elsif new_node.to_html =~ /<p>/ then
+						    new_node.text
+						end
 						}
 
 					}
