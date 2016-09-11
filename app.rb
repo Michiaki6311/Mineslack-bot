@@ -161,13 +161,13 @@ post '/search' do
 							new_node.children.filter("//span[@class='mw-headline']").map{|new_new_node|
 							
 								"*"+new_new_node+"*"
-							}
+							}.join("\n")
 						    end
 						elsif new_node.to_html =~ /<h3/ then
 						    new_node.children.filter("//span[@class='mw-headline']").map{|new_new_node|
 						    
 						    	"_"+new_new_node+"_"
-						    }
+						    }.join("\n")
 						elsif new_node.to_html =~ /<li>/ then
 						    "・"+new_node.text
 						elsif new_node.to_html =~ /<p>/ then
@@ -253,13 +253,13 @@ post '/search' do
 							new_node.children.filter("//span[@class='mw-headline']").map{|new_new_node|
 							
 								"*"+new_new_node+"*"
-							}
+							}.join("\n")
 						    end
 						elsif new_node.to_html =~ /<h3/ then
 						    new_node.children.filter("//span[@class='mw-headline']").map{|new_new_node|
 						    
 						    	"_"+new_new_node+"_"
-						    }
+						    }.join("\n")
 						elsif new_node.to_html =~ /<li>/ then
 						    "・"+new_node.text
 						elsif new_node.to_html =~ /<p>/ then
