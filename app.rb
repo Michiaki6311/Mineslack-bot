@@ -149,7 +149,7 @@ post '/search' do
 				doc = Nokogiri::HTML.parse(open(new_item_url), nil, "utf-8") 
 				details = doc.xpath("//div[@class='mw-body']").map{|node|
 					{
-						name: node.xpath("//h1").text,
+						name: "*・"+node.xpath("//h1").text+"*",
 						image: node.xpath("//div[@class='infobox-imagearea']//img").attribute('src').value + "##{timestamp}",
 						description: node.xpath("//div[@class='mw-content-ltr']/h3|//div[@class='mw-content-ltr']/h2|//div[@class='mw-content-ltr']/p|//div[@class='mw-content-ltr']/ul/li[not(@class) and not(*)]").map{|new_node|
 						if new_node.to_html =~ /<h2/ then
@@ -241,7 +241,7 @@ post '/search' do
 				doc = Nokogiri::HTML.parse(open(new_item_url), nil, "utf-8") 
 				details = doc.xpath("//div[@class='mw-body']").map{|node|
 					{
-						name: "*"+node.xpath("//h1").text+"*",
+						name: "*・"+node.xpath("//h1").text+"*",
 						image: node.xpath("//div[@class='infobox-imagearea']//img").attribute('src').value + "##{timestamp}",
 						description: node.xpath("//div[@class='mw-content-ltr']/h3|//div[@class='mw-content-ltr']/h2|//div[@class='mw-content-ltr']/p|//div[@class='mw-content-ltr']/ul/li[not(@class) and not(*)]").map{|new_node|
 						if new_node.to_html =~ /<h2/ then
