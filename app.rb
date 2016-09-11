@@ -154,7 +154,7 @@ post '/search' do
 						description: node.xpath("//div[@class='mw-content-ltr']/h3/span[@class='mw-headline']|//div[@class='mw-content-ltr']/h2/span[@class='mw-headline']|//div[@class='mw-content-ltr']/p|//div[@class='mw-content-ltr']/ul/li[not(@class) and not(*)]").map{|new_node|
 						if new_node.to_html =~ /<span class="mw-headline"/ then
 							case new_node.text
-							when /歴史|ギャラリー|脚注/
+							when /歴史|ギャラリー|脚注|参考/
 							then
 							""
 						    else
