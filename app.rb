@@ -169,13 +169,7 @@ post '/search' do
 						    	"_"+new_new_node+"_"
 						    }.join("\n")
 						elsif new_node.to_html =~ /<li>/ then
-						    if new_node.to_html =~ /<a/ && new_node.to_html =~ /extiw/ then
-						    	"・"+new_node.text+"(link:<"+new_node.xpath('a').attribute('href')+"|"+new_node.xpath('a').text+">)"
-						    elsif new_node.to_html =~ /<a/ then
-						    	"・"+new_node.text+"(link:<"+"http://minecraft-ja.gamepedia.com"+new_node.xpath('a').attribute('href')+"|"+new_node.xpath('a').text+">)"
-						    else
 						    "・"+new_node.text
-						    end
 						elsif new_node.to_html =~ /<p>/ then
 						    new_node.text
 						end
@@ -267,13 +261,7 @@ post '/search' do
 						    	"_"+new_new_node+"_"
 						    }.join("\n")
 						elsif new_node.to_html =~ /<li>/ then
-						    if new_node.to_html =~ /<a/ && new_node.to_html =~ /extiw/ then
-						    	"・"+new_node.text+"(link:<"+new_node.xpath('a').attribute('href')+"|"+new_node.xpath('a').text+">)"
-						    elsif new_node.to_html =~ /<a/ then
-						    	"・"+new_node.text+"(link:<"+"http://minecraft-ja.gamepedia.com"+new_node.xpath('a').attribute('href')+"|"+new_node.xpath('a').text+">)"
-						    else
 						    "・"+new_node.text
-						    end
 						elsif new_node.to_html =~ /<p>/ then
 						    new_node.text
 						end
