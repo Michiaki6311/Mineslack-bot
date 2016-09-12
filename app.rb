@@ -171,7 +171,7 @@ post '/search' do
 						elsif new_node.to_html =~ /<li>/ then
 						    if new_node.to_html =~ /<a/ && new_node.to_html =~ /http:\/\/minecraft-ja.gamepedia.com/ then
 						    	"・"+new_node.text+"(link:<"+new_node.xpath('a').attribute('href')+"|"+new_node.xpath('a').text+">)"
-						    elsif /<a/ then
+						    elsif new_node.to_html =~ /<a/ then
 						    	"・"+new_node.text+"(link:<"+"http://minecraft-ja.gamepedia.com"+new_node.xpath('a').attribute('href')+"|"+new_node.xpath('a').text+">)"
 						    else
 						    "・"+new_node.text
@@ -269,7 +269,7 @@ post '/search' do
 						elsif new_node.to_html =~ /<li>/ then
 						    if new_node.to_html =~ /<a/ && new_node.to_html =~ /http:\/\/minecraft-ja.gamepedia.com/ then
 						    	"・"+new_node.text+"(link:<"+new_node.xpath('a').attribute('href')+"|"+new_node.xpath('a').text+">)"
-						    elsif /<a/ then
+						    elsif new_node.to_html =~ /<a/ then
 						    	"・"+new_node.text+"(link:<"+"http://minecraft-ja.gamepedia.com"+new_node.xpath('a').attribute('href')+"|"+new_node.xpath('a').text+">)"
 						    else
 						    "・"+new_node.text
