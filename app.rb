@@ -180,7 +180,7 @@ post '/search' do
 				}
 
 				details.each do |detail|
-					item_details.push("#{detail[:name]}\n#{detail[:image]}\n#{detail[:description].join("\n")}\n\n")
+					item_details.push("#{detail[:name]}\n#{detail[:url]}\n#{detail[:image]}\n#{detail[:description].join("\n")}\n\n")
 				end
 			end
 		end
@@ -273,7 +273,7 @@ post '/search' do
 				}
 
 				details.each do |detail|
-					item_details.push("#{detail[:name]}\n#{detail[:image]}\n#{detail[:description].join("\n")}\n\n")
+					item_details.push("#{detail[:name]}\n#{detail[:url]}\n#{detail[:image]}\n#{detail[:description].join("\n")}\n\n")
 				end
 			end
 		end
