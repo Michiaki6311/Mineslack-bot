@@ -169,7 +169,12 @@ post '/search' do
 						    	"_"+new_new_node+"_"
 						    }.join("\n")
 						elsif new_node.to_html =~ /<li>/ then
+						    case new_node.to_html
+						    when /<a/ then
+						    	"・"+new_node.text+"(link:<"+new_node.xpath('a').attribute('href')+"|"+new_node.xpath('a').text+">)"
+						    else
 						    "・"+new_node.text
+						    end
 						elsif new_node.to_html =~ /<p>/ then
 						    new_node.text
 						end
@@ -261,7 +266,12 @@ post '/search' do
 						    	"_"+new_new_node+"_"
 						    }.join("\n")
 						elsif new_node.to_html =~ /<li>/ then
+						    case new_node.to_html
+						    when /<a/ then
+						    	"・"+new_node.text+"(link:<"+new_node.xpath('a').attribute('href')+"|"+new_node.xpath('a').text+">)"
+						    else
 						    "・"+new_node.text
+						    end
 						elsif new_node.to_html =~ /<p>/ then
 						    new_node.text
 						end
