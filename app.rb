@@ -171,7 +171,7 @@ post '/search' do
 						elsif new_node.to_html =~ /<li>/ then
 						    case new_node.to_html
 						    when /<a/ then
-						    	"・"+new_node.text+"(link:<"+new_node.xpath('a').attribute('href')+"|"+new_node.xpath('a').text+">)"
+						    	"・"+new_node.text+"(link:<"+"http://minecraft-ja.gamepedia.com/"+new_node.xpath('a').attribute('href')+"|"+new_node.xpath('a').text+">)"
 						    else
 						    "・"+new_node.text
 						    end
@@ -268,7 +268,7 @@ post '/search' do
 						elsif new_node.to_html =~ /<li>/ then
 						    case new_node.to_html
 						    when /<a/ then
-						    	"・"+new_node.text+"(link:<"+new_node.xpath('a').attribute('href')+"|"+new_node.xpath('a').text+">)"
+						    	"・"+new_node.text+"(link:<"+"http://minecraft-ja.gamepedia.com/"+new_node.xpath('a').attribute('href')+"|"+new_node.xpath('a').text+">)"
 						    else
 						    "・"+new_node.text
 						    end
