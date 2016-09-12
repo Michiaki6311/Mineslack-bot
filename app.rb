@@ -150,7 +150,8 @@ post '/search' do
 				details = doc.xpath("//div[@class='mw-body']").map{|node|
 					{
 						name: "*・"+node.xpath("//h1").text+"*",
-						image: node.xpath("//div[@class='infobox-imagearea']//img").attribute('src').value + "##{timestamp}",
+						url: "<"+new_item_url+"|Wikiへのリンク>",
+						image: node.xpath("//div[@class='infobox-imagearea']//img").attribute('src').value+"##{timestamp}",
 						description: node.xpath("//div[@class='mw-content-ltr']/h3|//div[@class='mw-content-ltr']/h2|//div[@class='mw-content-ltr']/p|//div[@class='mw-content-ltr']/ul/li[not(@class)]").map{|new_node|
 						if new_node.to_html =~ /<h2/ then
 							case new_node.text
@@ -159,7 +160,6 @@ post '/search' do
 							""
 						    else
 							new_node.children.filter("//span[@class='mw-headline']").map{|new_new_node|
-							
 								"*"+new_new_node+"*"
 							}.join("\n")
 						    end
@@ -179,7 +179,7 @@ post '/search' do
 				}
 
 				details.each do |detail|
-					item_details.push("#{detail[:name]}\n#{detail[:image]}\n#{detail[:description].join("\n")}\n\n")
+					item_details.push("#{detail[:name]}\n#{detail[:url]}\n#{detail[:image]}\n#{detail[:description].join("\n")}\n")
 				end
 			end
 		end
@@ -242,6 +242,7 @@ post '/search' do
 				details = doc.xpath("//div[@class='mw-body']").map{|node|
 					{
 						name: "*・"+node.xpath("//h1").text+"*",
+						url: "<"+new_item_url+"|Wikiへのリンク>",
 						image: node.xpath("//div[@class='infobox-imagearea']//img").attribute('src').value + "##{timestamp}",
 						description: node.xpath("//div[@class='mw-content-ltr']/h3|//div[@class='mw-content-ltr']/h2|//div[@class='mw-content-ltr']/p|//div[@class='mw-content-ltr']/ul/li[not(@class)]").map{|new_node|
 						if new_node.to_html =~ /<h2/ then
@@ -251,7 +252,6 @@ post '/search' do
 							""
 						    else
 							new_node.children.filter("//span[@class='mw-headline']").map{|new_new_node|
-							
 								"*"+new_new_node+"*"
 							}.join("\n")
 						    end
@@ -271,7 +271,7 @@ post '/search' do
 				}
 
 				details.each do |detail|
-					item_details.push("#{detail[:name]}\n#{detail[:image]}\n#{detail[:description].join("\n")}\n\n")
+					item_details.push("#{detail[:name]}\n#{detail[:url]}\n#{detail[:image]}\n#{detail[:description].join("\n")}\n")
 				end
 			end
 		end
