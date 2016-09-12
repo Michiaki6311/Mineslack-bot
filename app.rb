@@ -137,7 +137,12 @@ post '/search' do
 
 			items.each do |item|
 				if item[:name] =~ /#{searchword}/ then 
-					array.push("#{item[:url]}")
+					case item[:name]
+				    when "焼き肉" then
+				    	""
+				    else
+				      	array.push("#{item[:url]}")
+				    end
 				end
 			end
 
@@ -229,7 +234,12 @@ post '/search' do
 
 			items.each do |item|
 				if item[:name] =~ /#{searchword}/ then 
-					array.push("#{item[:url]}")
+					case item[:name]
+				    when "鉱石","固形ブロック" then
+				    	""
+				    else
+				      	array.push("#{item[:url]}")
+				    end
 				end
 			end
 
