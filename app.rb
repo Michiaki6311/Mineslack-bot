@@ -149,7 +149,7 @@ post '/search' do
 				doc = Nokogiri::HTML.parse(open(new_item_url), nil, "utf-8") 
 				details = doc.xpath("//div[@class='mw-body']").map{|node|
 					{
-						name: "*・" + node.text + "*",
+						name: "*・" + node.xpath("//h2").text + "*",
 						url: "<"+new_item_url+"|Wikiへのリンク>",
 						image: node.xpath("//div[@class='infobox-imagearea']//img").attribute('src').value+"##{timestamp}",
 						description: node.xpath("//div[@class='mw-content-ltr']/h3|//div[@class='mw-content-ltr']/h2|//div[@class='mw-content-ltr']/p|//div[@class='mw-content-ltr']/ul/li[not(@class)]").map{|new_node|
@@ -241,7 +241,7 @@ post '/search' do
 				doc = Nokogiri::HTML.parse(open(new_item_url), nil, "utf-8") 
 				details = doc.xpath("//div[@class='mw-body']").map{|node|
 					{
-						name: "*・" + node.text + "*",
+						name: "*・" + node.xpath('//h2').text + "*",
 						url: "<"+new_item_url+"|Wikiへのリンク>",
 						image: node.xpath("//div[@class='infobox-imagearea']//img").attribute('src').value + "##{timestamp}",
 						description: node.xpath("//div[@class='mw-content-ltr']/h3|//div[@class='mw-content-ltr']/h2|//div[@class='mw-content-ltr']/p|//div[@class='mw-content-ltr']/ul/li[not(@class)]").map{|new_node|
