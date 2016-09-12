@@ -149,13 +149,15 @@ post '/search' do
 				doc = Nokogiri::HTML.parse(open(new_item_url), nil, "utf-8") 
 				details = doc.xpath("//div[@class='mw-body']").map{|node|
 					{
-						name: "*・"+node.xpath("//h1").text+"*",
+						name: node.xpath("//p/b").map{|new_node|
+							"*・"+new_node.text+"*"
+						}.join("\n"),
 						url: "<"+new_item_url+"|Wikiへのリンク>",
 						image: node.xpath("//div[@class='infobox-imagearea']//img").attribute('src').value+"##{timestamp}",
 						description: node.xpath("//div[@class='mw-content-ltr']/h3|//div[@class='mw-content-ltr']/h2|//div[@class='mw-content-ltr']/p|//div[@class='mw-content-ltr']/ul/li[not(@class)]").map{|new_node|
 						if new_node.to_html =~ /<h2/ then
 							case new_node.text
-							when /歴史|ギャラリー|脚注|関連/
+							when /歴史|ギャラリー/
 							then
 							""
 						    else
@@ -241,13 +243,15 @@ post '/search' do
 				doc = Nokogiri::HTML.parse(open(new_item_url), nil, "utf-8") 
 				details = doc.xpath("//div[@class='mw-body']").map{|node|
 					{
-						name: "*・"+node.xpath("//h1").text+"*",
+						name: node.xpath("//p/b").map{|new_node|
+							"*・"+new_node.text+"*"
+						}.join("\n"),
 						url: "<"+new_item_url+"|Wikiへのリンク>",
 						image: node.xpath("//div[@class='infobox-imagearea']//img").attribute('src').value + "##{timestamp}",
 						description: node.xpath("//div[@class='mw-content-ltr']/h3|//div[@class='mw-content-ltr']/h2|//div[@class='mw-content-ltr']/p|//div[@class='mw-content-ltr']/ul/li[not(@class)]").map{|new_node|
 						if new_node.to_html =~ /<h2/ then
 							case new_node.text
-							when /歴史|ギャラリー|脚注|関連/
+							when /歴史|ギャラリー/
 							then
 							""
 						    else
@@ -329,37 +333,6 @@ post '/search' do
 				slack.post "#{url}" + "##{timestamp}"
 		end	
 		
-		
-	elsif params[:text] =~ /^!m\sore/ then
-	    url = "https://gyazo.com/9b07420102f70bdbbe69d24acc26494a"
-	    timestamp = Time.now.to_i
-	    
-		if params[:token] == ENV['TOKEN1']
-			slack = Slack::Incoming::Webhooks.new ENV['URL']
-				slack.post "#{url}"
-		elsif params[:token] == ENV['TOKEN2']
-			slack = Slack::Incoming::Webhooks.new ENV['URL2']
-				slack.post "#{url}"
-		elsif params[:token] == ENV['TOKEN3']
-			slack = Slack::Incoming::Webhooks.new ENV['URL3']
-				slack.post "#{url}"
-		end	
-		
-		
-	elsif params[:text] =~ /^!m\senchant/ then
-	    url = "https://gyazo.com/c9db51aaca5b53a575c86dd80a0924c0"
-	    timestamp = Time.now.to_i
-	    
-		if params[:token] == ENV['TOKEN1']
-			slack = Slack::Incoming::Webhooks.new ENV['URL']
-				slack.post "#{url}"
-		elsif params[:token] == ENV['TOKEN2']
-			slack = Slack::Incoming::Webhooks.new ENV['URL2']
-				slack.post "#{url}"
-		elsif params[:token] == ENV['TOKEN3']
-			slack = Slack::Incoming::Webhooks.new ENV['URL3']
-				slack.post "#{url}"
-		end	
 
 
 	else
