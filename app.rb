@@ -149,7 +149,6 @@ post '/search' do
 				doc = Nokogiri::HTML.parse(open(new_item_url), nil, "utf-8") 
 				details = doc.xpath("//div[@class='mw-body']").map{|node|
 					{
-						url: new_item_url,
 						name: "*・"+node.xpath("//h1").text+"*",
 						image: node.xpath("//div[@class='infobox-imagearea']//img").attribute('src').value + "##{timestamp}",
 						description: node.xpath("//div[@class='mw-content-ltr']/h3|//div[@class='mw-content-ltr']/h2|//div[@class='mw-content-ltr']/p|//div[@class='mw-content-ltr']/ul/li[not(@class)]").map{|new_node|
@@ -180,7 +179,7 @@ post '/search' do
 				}
 
 				details.each do |detail|
-					item_details.push("#{detail[:name]}\n#{details[:url]}\n#{detail[:image]}\n#{detail[:description].join("\n")}\n\n")
+					item_details.push("#{detail[:name]}\n#{detail[:image]}\n#{detail[:description].join("\n")}\n\n")
 				end
 			end
 		end
@@ -242,7 +241,6 @@ post '/search' do
 				doc = Nokogiri::HTML.parse(open(new_item_url), nil, "utf-8") 
 				details = doc.xpath("//div[@class='mw-body']").map{|node|
 					{
-						url: new_item_url,
 						name: "*・"+node.xpath("//h1").text+"*",
 						image: node.xpath("//div[@class='infobox-imagearea']//img").attribute('src').value + "##{timestamp}",
 						description: node.xpath("//div[@class='mw-content-ltr']/h3|//div[@class='mw-content-ltr']/h2|//div[@class='mw-content-ltr']/p|//div[@class='mw-content-ltr']/ul/li[not(@class)]").map{|new_node|
@@ -273,7 +271,7 @@ post '/search' do
 				}
 
 				details.each do |detail|
-					item_details.push("#{detail[:name]}\n#{details[:url]}\n#{detail[:image]}\n#{detail[:description].join("\n")}\n\n")
+					item_details.push("#{detail[:name]}\n#{detail[:image]}\n#{detail[:description].join("\n")}\n\n")
 				end
 			end
 		end
