@@ -154,7 +154,7 @@ post '/search' do
 						description: node.xpath("//div[@class='mw-content-ltr']/h3|//div[@class='mw-content-ltr']/h2|//div[@class='mw-content-ltr']/p|//div[@class='mw-content-ltr']/ul/li[not(@class)]").map{|new_node|
 						if new_node.to_html =~ /<h2/ then
 							case new_node.text
-							when /歴史|ギャラリー|脚注|関連|参照|参考/
+							when /歴史|ギャラリー|脚注|関連/
 							then
 							""
 						    else
@@ -169,9 +169,10 @@ post '/search' do
 						    	"_"+new_new_node+"_"
 						    }.join("\n")
 						elsif new_node.to_html =~ /<li>/ then
-						    case new_node.to_html
-						    when /<a/ then
-						    	"・"+new_node.text+"(link:<"+"http://minecraft-ja.gamepedia.com/"+new_node.xpath('a').attribute('href')+"|"+new_node.xpath('a').text+">)"
+						    if new_node.to_html =~ /<a/ && new_node.to_html =~ /http:\/\/minecraft-ja.gamepedia.com/ then
+						    	"・"+new_node.text+"(link:<"+new_node.xpath('a').attribute('href')+"|"+new_node.xpath('a').text+">)"
+						    elsif /<a/ then
+						    	"・"+new_node.text+"(link:<"+"http://minecraft-ja.gamepedia.com"+new_node.xpath('a').attribute('href')+"|"+new_node.xpath('a').text+">)"
 						    else
 						    "・"+new_node.text
 						    end
@@ -251,7 +252,7 @@ post '/search' do
 						description: node.xpath("//div[@class='mw-content-ltr']/h3|//div[@class='mw-content-ltr']/h2|//div[@class='mw-content-ltr']/p|//div[@class='mw-content-ltr']/ul/li[not(@class)]").map{|new_node|
 						if new_node.to_html =~ /<h2/ then
 							case new_node.text
-							when /歴史|ギャラリー|脚注|関連|参照|参考/
+							when /歴史|ギャラリー|脚注|関連/
 							then
 							""
 						    else
@@ -266,9 +267,10 @@ post '/search' do
 						    	"_"+new_new_node+"_"
 						    }.join("\n")
 						elsif new_node.to_html =~ /<li>/ then
-						    case new_node.to_html
-						    when /<a/ then
-						    	"・"+new_node.text+"(link:<"+"http://minecraft-ja.gamepedia.com/"+new_node.xpath('a').attribute('href')+"|"+new_node.xpath('a').text+">)"
+						    if new_node.to_html =~ /<a/ && new_node.to_html =~ /http:\/\/minecraft-ja.gamepedia.com/ then
+						    	"・"+new_node.text+"(link:<"+new_node.xpath('a').attribute('href')+"|"+new_node.xpath('a').text+">)"
+						    elsif /<a/ then
+						    	"・"+new_node.text+"(link:<"+"http://minecraft-ja.gamepedia.com"+new_node.xpath('a').attribute('href')+"|"+new_node.xpath('a').text+">)"
 						    else
 						    "・"+new_node.text
 						    end
