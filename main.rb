@@ -1,8 +1,8 @@
 require 'sinatra'
+require 'slack/incoming/webhooks'
 require './item_search.rb'
 require './block_search.rb'
 require './recipe_search.rb'
-
     
     
 post '/search' do
