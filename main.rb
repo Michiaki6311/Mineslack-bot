@@ -59,6 +59,6 @@ post '/search' do
     # Slackへの投稿
     
 	slack = Slack::Incoming::Webhooks.new ENV['URL3']
-	slack.post item_details 
+	slack.post "hi"
     
 end
