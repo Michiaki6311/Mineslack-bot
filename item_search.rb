@@ -49,10 +49,10 @@ require 'nokogiri'
 					{
 						url: "<"+new_item_url+"|Wikiへのリンク>",
 						name: "*・" + node.xpath("//h1").text + "*",
-						image: if node.xpath("//a[@class='image']//img").empty? then
+						image: if node.xpath("//div[@class='infobox-imagearea']//img").empty? then
 						         ""
 						       else
-						         node.xpath("//a[@class='image']//img").attribute('src').value + "##{timestamp}"
+						         node.xpath("//div[@class='infobox-imagearea']//img").attribute('src').value + "##{timestamp}"
 						       end,
 						description: node.xpath("//div[@class='mw-content-ltr']/h3|//div[@class='mw-content-ltr']/h2|//div[@class='mw-content-ltr']//table[@class='wikitable']|//div[@class='mw-content-ltr']/p|//div[@class='mw-content-ltr']/ul/li[not(@class)]").map{|new_node|
 						
@@ -137,10 +137,10 @@ require 'nokogiri'
 					{
 						url: "<"+new_item_url+"|Wikiへのリンク>",
 						name: "*・" + node.xpath("//h1").text + "*",
-						image: if node.xpath("//a[@class='image']//img").empty? then
+						image: if node.xpath("//div[@class='infobox-imagearea']//img").empty? then
 						         ""
 						       else
-						         node.xpath("//a[@class='image']//img").attribute('src').value + "##{timestamp}"
+						         node.xpath("//div[@class='infobox-imagearea']//img").attribute('src').value + "##{timestamp}"
 						       end,
 						description: node.xpath("//div[@class='mw-content-ltr']/h3|//div[@class='mw-content-ltr']/h2|//div[@class='mw-content-ltr']//table[@class='wikitable']|//div[@class='mw-content-ltr']/p|//div[@class='mw-content-ltr']/ul/li[not(@class)]").map{|new_node|
 						
