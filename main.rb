@@ -2,12 +2,10 @@ require 'sinatra'
 require './item_search.rb'
 require './block_search.rb'
 require './recipe_search.rb'
-require './post_to_slack.rb'
 
     
     
 post '/search' do
-    result = []
     
     if params[:text] =~ /^!mi\s/ then
         mineitem = ItemSearch.new("#{params[:text].gsub(/^!mi\s/,'')}")
@@ -59,7 +57,21 @@ post '/search' do
     end
     
     # Slackへの投稿
-    minepost = PostToSlack.new(result)
-    response = minepost.post_to_slack
+    if params[:token] == ENV['TOKEN1']
+			slack = Slack::Incoming::Webhooks.new ENV['URL']
+			result.map{|arr|
+				slack.post "#{arr.strip}"
+			}
+		elsif params[:token] == ENV['TOKEN2']
+			slack = Slack::Incoming::Webhooks.new ENV['URL2']
+			result.map{|arr|
+				slack.post "#{arr.strip}"
+			}
+		elsif params[:token] == ENV['TOKEN3']
+			slack = Slack::Incoming::Webhooks.new ENV['URL3']
+			result.map{|arr|
+				slack.post "#{arr.strip}"
+			}
+	    end
     
 end
