@@ -3,9 +3,12 @@ require './item_search.rb'
 require './block_search.rb'
 require './recipe_search.rb'
 require './post_to_slack.rb'
+
     
     
 post '/search' do
+    result = []
+    
     if params[:text] =~ /^!mi\s/ then
         mineitem = ItemSearch.new("#{params[:text].gsub(/^!mi\s/,'')}")
         case params[:text].gsub(/^!mi\s/,'')
@@ -57,5 +60,6 @@ post '/search' do
     
     # Slackへの投稿
     minepost = PostToSlack.new(result)
-    minepost.post_to_slack
+    response = minepost.post_to_slack
+    
 end
