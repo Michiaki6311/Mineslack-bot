@@ -69,9 +69,7 @@ post '/search' do
 			}
 		elsif params[:token] == ENV['TOKEN3']
 			slack = Slack::Incoming::Webhooks.new ENV['URL3']
-			item_details.map{|arr|
-				slack.post "#{arr.strip}"
-			}
+				slack.post item_details 
 		end
     
 end
