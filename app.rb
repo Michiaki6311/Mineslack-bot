@@ -52,6 +52,10 @@ post '/search' do
         # 一部一致するものすべて
         minerecipe = RecipeSearch.new("#{params[:text].gsub(/^!mg\s/,'')}")
         item_details = minerecipe.image_search
+    
+    elsif params[:text] =~ /^!m\shelp/ then
+        # コマンドが"!m help"の場合
+        item_details = ["コマンド一覧\nレシピの検索: !mr 検索したい用語\nアイテムの検索: !mi 検索したい用語\nブロックの検索: !mb 検索したい用語\nヘルプ: !m help"]
     else
         ""
     end
