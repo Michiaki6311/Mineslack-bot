@@ -14,13 +14,13 @@ post '/search' do
         # 完全一致のもののみ
         when /^s\s/ then
             mineitem = ItemSearch.new("#{params[:text].gsub(/^!mi\ss\s/,'')}")
-            result = mineitem.specific_item_search
+            item_details = mineitem.specific_item_search
         else
             
         # コマンドが"!mi (検索語)"の場合
         # 一部一致するものすべて
             mineitem = ItemSearch.new("#{params[:text].gsub(/^!mi\s/,'')}")
-            result = mineitem.item_search
+            item_details = mineitem.item_search
         end
         
         
@@ -31,13 +31,13 @@ post '/search' do
         # 完全一致のもののみ
         when /^s\s/ then
             mineblock = BlockSearch.new("#{params[:text].gsub(/^!mb\ss\s/,'')}")
-            result = mineblock.specific_block_search
+            item_details = mineblock.specific_block_search
         else
             
-        # コマンドが"!mi (検索語)"の場合
+        # コマンドが"!mb (検索語)"の場合
         # 一部一致するものすべて
             mineblock = BlockSearch.new("#{params[:text].gsub(/^!mb\s/,'')}")
-            result = mineblock.block_search
+            item_details = mineblock.block_search
         end
         
         
@@ -45,13 +45,13 @@ post '/search' do
         # コマンドが"!mr (検索語)"の場合
         # 一部一致するものすべて
         minerecipe = RecipeSearch.new("#{params[:text].gsub(/^!mr\s/,'')}")
-        result = minerecipe.recipe_search
+        item_details = minerecipe.recipe_search
     
     elsif params[:text] =~ /^!mg\s/ then
         # コマンドが"!mg (検索語)"の場合
         # 一部一致するものすべて
         minerecipe = RecipeSearch.new("#{params[:text].gsub(/^!mg\s/,'')}")
-        result = minerecipe.image_search
+        item_details = minerecipe.image_search
     else
         ""
     end
@@ -59,19 +59,19 @@ post '/search' do
     # Slackへの投稿
     if params[:token] == ENV['TOKEN1']
 			slack = Slack::Incoming::Webhooks.new ENV['URL']
-			result.map{|arr|
+			item_details.map{|arr|
 				slack.post "#{arr.strip}"
 			}
 		elsif params[:token] == ENV['TOKEN2']
 			slack = Slack::Incoming::Webhooks.new ENV['URL2']
-			result.map{|arr|
+			item_details.map{|arr|
 				slack.post "#{arr.strip}"
 			}
 		elsif params[:token] == ENV['TOKEN3']
 			slack = Slack::Incoming::Webhooks.new ENV['URL3']
-			result.map{|arr|
+			item_details.map{|arr|
 				slack.post "#{arr.strip}"
 			}
-	    end
+		end
     
 end
