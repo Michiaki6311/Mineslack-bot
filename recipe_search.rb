@@ -14,7 +14,7 @@ class RecipeSearch
 	# レシピ検索(アイテム解説付き)
 	def recipe_search
 		array = []
-		url = "http://www26.atwiki.jp/minecraft/pages/1073.html"
+		url = "https://www26.atwiki.jp/minecraft/pages/1073.html"
 		items = nil
 		timestamp = Time.now.to_i
 
@@ -52,7 +52,7 @@ class RecipeSearch
 	# レシピ検索(レシピ画像のみ)
 	def image_search
 		array = []
-		url = "http://www26.atwiki.jp/minecraft/pages/1073.html"
+		url = "https://www26.atwiki.jp/minecraft/pages/1073.html"
 		items = nil
 		timestamp = Time.now.to_i
 
